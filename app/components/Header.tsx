@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { menus } from "../lib/data";
+import ThemeSwitch from "./ThemeSwitch";
 
 const Header = () => {
   return (
@@ -23,7 +24,7 @@ const Header = () => {
               </Link>
             ))}
           </>
-          {/* <button>Dark</button> */}
+          <ThemeSwitch />
         </div>
       </div>
     </nav>
