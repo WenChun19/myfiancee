@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { menus } from "../lib/data";
+import { menus } from "../libs/data";
 import ThemeSwitch from "./ThemeSwitch";
 
 const Header = () => {

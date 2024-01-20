@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Redressed } from "next/font/google";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import "./globals.css";
 import { Providers } from "./providers/providers";
 
 const inter = Inter({ subsets: ["latin"] });
+const redressed = Redressed({ weight: "400", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "MyFiancee",
