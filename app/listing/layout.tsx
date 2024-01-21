@@ -8,8 +8,8 @@ interface DashboardLayoutProps {
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
-    <section className="grid grid-cols-5">
-      <nav className="flex flex-col col-span-1 justify-center items-center p-2">
+    <section className="md:grid md:grid-cols-5 flex flex-col">
+      <nav className="flex md:flex-col gap-3 col-span-1 md:justify-center items-center md:p-2 p-4">
         {listing_menus.map((menu, index) => (
           <Link
             className="border-blue-200 p-3 rounded-lg border-b-4"

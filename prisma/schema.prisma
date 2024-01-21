@@ -16,3 +16,11 @@ model Post {
   description String
   date        DateTime @default(now())
 }
+
+model Transaction {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  debit      Float
+  credit     Float
+  created_at DateTime @default(now())
+}

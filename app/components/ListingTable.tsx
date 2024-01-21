@@ -6,7 +6,19 @@ import { HiTrash } from "react-icons/hi2";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import Link from "next/link";
 
-const ListingTable = () => {
+export interface TransactionDataType {
+  id: String;
+  name: String;
+  debit: number;
+  credit: number;
+  created_at: Date;
+}
+
+type ListingTableProps = {
+  data: TransactionDataType[];
+};
+
+const ListingTable = ({ data }: ListingTableProps) => {
   return (
     <div
       className="relative overflow-x-auto 
@@ -39,7 +51,7 @@ const ListingTable = () => {
           </tr>
         </thead>
         <tbody>
-          {transaction_data.map(
+          {data.map(
             ({ id, name, debit, credit, created_at }, index) => (
               <tr
                 key={`${name}_${index}`}
@@ -54,7 +66,7 @@ const ListingTable = () => {
                 </th>
                 <td className="px-6 py-4">{debit}</td>
                 <td className="px-6 py-4">{credit}</td>
-                <td className="px-6 py-4">{created_at}</td>
+                <td className="px-6 py-4">{created_at.toString()}</td>
                 <td className="px-6 py-4">
                   <div className="flex mr-1 text-lg text-cyan-600">
                     <Link href={`/transaction/${id}`}>
