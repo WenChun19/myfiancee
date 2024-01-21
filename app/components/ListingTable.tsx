@@ -1,4 +1,10 @@
+"use client";
+
 import React from "react";
+import { transaction_data } from "../libs/data";
+import { HiTrash } from "react-icons/hi2";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import Link from "next/link";
 
 const ListingTable = () => {
   return (
@@ -25,7 +31,7 @@ const ListingTable = () => {
               Credit
             </th>
             <th scope="col" className="px-6 py-3">
-              Amount
+              Created Date
             </th>
             <th scope="col" className="px-6 py-3">
               <span className="sr-only">Action</span>
@@ -33,21 +39,33 @@ const ListingTable = () => {
           </tr>
         </thead>
         <tbody>
-          <tr
-            className="bg-white border-b dark:bg-gray-800 
+          {transaction_data.map(
+            ({ id, name, debit, credit, created_at }, index) => (
+              <tr
+                key={`${name}_${index}`}
+                className="bg-white border-b dark:bg-gray-800 
           dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-          >
-            <th
-              className="px-6 py-4 font-medium text-gray-900
+              >
+                <th
+                  className="px-6 py-4 font-medium text-gray-900
               whitespace-nowrap dark:text-white"
-            >
-              Touch And Go
-            </th>
-            <td className="px-6 py-4">30</td>
-            <td className="px-6 py-4">40</td>
-            <td className="px-6 py-4">-10</td>
-            <td className="px-6 py-4">Edit</td>
-          </tr>
+                >
+                  {name}
+                </th>
+                <td className="px-6 py-4">{debit}</td>
+                <td className="px-6 py-4">{credit}</td>
+                <td className="px-6 py-4">{created_at}</td>
+                <td className="px-6 py-4">
+                  <div className="flex mr-1 text-lg text-cyan-600">
+                    <Link href={`/transaction/${id}`}>
+                      <HiOutlinePencilAlt />
+                    </Link>
+                    <HiTrash onClick={() => alert("damn")} />
+                  </div>
+                </td>
+              </tr>
+            )
+          )}
         </tbody>
       </table>
     </div>
