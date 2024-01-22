@@ -7,8 +7,8 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import Link from "next/link";
 
 export interface TransactionDataType {
-  id: String;
-  name: String;
+  id: string;
+  name: string;
   debit: number;
   credit: number;
   created_at: Date;
