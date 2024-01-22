@@ -22,5 +22,29 @@ export async function createTransaction(formData: FormData) {
     console.log(error.message);
   }
 
-  redirect('/listing/transaction');
+  redirect("/listing/transaction");
 }
+
+export const updateTransaction = async (id: string, formData: FormData) => {
+  const name = formData.get("name") as string;
+  const debit = formData.get("debit") as any;
+  const credit = formData.get("credit") as any;
+
+  try {
+    await prisma.transaction.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        debit: parseFloat(debit),
+        credit: parseFloat(credit),
+      },
+    });
+    revalidatePath("/listing/transaction");
+  } catch (error: any) {
+    console.log(error.message);
+  }
+
+  redirect("/listing/transaction");
+};
