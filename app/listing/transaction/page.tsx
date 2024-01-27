@@ -5,6 +5,7 @@ import ListingTable, {
 import React from "react";
 import prisma from "@/app/libs/prismadb";
 import { unstable_noStore } from "next/cache";
+import FilterForm from "@/app/components/FilterForm";
 
 type allTransactionsResponse = {
   status: string;
@@ -31,7 +32,8 @@ const Transaction = async () => {
 
   return (
     <section className="flex flex-col gap-3">
-      <div className="flex justify-end mr-3">
+      <div className="flex justify-between md:mt-4 mr-3">
+        <FilterForm />
         <Button title="Add Transaction" href="/transaction/add" />
       </div>
 
