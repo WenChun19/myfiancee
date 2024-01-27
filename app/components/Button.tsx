@@ -2,14 +2,23 @@
 
 import { useRouter } from "next/navigation";
 import React from "react";
+import { IconType } from "react-icons";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  title: string;
+  outline?: boolean;
+  icon?: IconType;
+  title?: string;
   className?: string;
   href?: string;
 }
 
-const Button = ({ title, className, href }: ButtonProps) => {
+const Button = ({
+  icon: Icon,
+  title,
+  className,
+  href,
+  outline,
+}: ButtonProps) => {
   const router = useRouter();
 
   const redirect = () => {
@@ -21,10 +30,13 @@ const Button = ({ title, className, href }: ButtonProps) => {
   return (
     <button
       className={`p-2 border-2 rounded-lg 
-       text-sm bg-slate-400 text-slate-50 ${className}`}
+       text-sm 
+      ${outline ? "text-slate-500 bg-slate-50" : "bg-slate-400 text-slate-50"} 
+       ${className}`}
       onClick={redirect}
     >
       {title}
+      {Icon && <Icon size={16} />}
     </button>
   );
 };
