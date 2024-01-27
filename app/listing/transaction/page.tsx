@@ -12,11 +12,17 @@ type allTransactionsResponse = {
   transactions: TransactionDataType[] | [];
 };
 
-const getAllTransactions = async (): Promise<allTransactionsResponse> => {
+const getAllTransactions = async (
+  search: string
+): Promise<allTransactionsResponse> => {
   try {
     // await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    const transactions = await prisma.transaction.findMany();
+    const transactions = await prisma.transaction.findMany({
+      where: {
+        name: { contains: search, mode: "insensitive" },
+      },
+    });
     return { status: "success", transactions };
   } catch (error: any) {
     // console.log(error?.message);
@@ -24,10 +30,19 @@ const getAllTransactions = async (): Promise<allTransactionsResponse> => {
   }
 };
 
-const Transaction = async () => {
+type TransactionPageProps = {
+  searchParams?: {
+    search?: string;
+  };
+};
+
+const Transaction: React.FC<TransactionPageProps> = async ({
+  searchParams,
+}) => {
   unstable_noStore();
 
-  const response = await getAllTransactions();
+  const search = searchParams?.search || "";
+  const response = await getAllTransactions(search);
   const { transactions } = response;
 
   return (

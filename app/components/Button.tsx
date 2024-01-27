@@ -10,6 +10,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   title?: string;
   className?: string;
   href?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Button = ({
@@ -18,6 +19,7 @@ const Button = ({
   className,
   href,
   outline,
+  onClick,
 }: ButtonProps) => {
   const router = useRouter();
 
@@ -31,9 +33,13 @@ const Button = ({
     <button
       className={`p-2 border-2 rounded-lg 
        text-sm 
-      ${outline ? "text-slate-500 bg-slate-50" : "bg-slate-400 text-slate-50"} 
+      ${
+        outline
+          ? "text-slate-500 bg-slate-50 border-slate-400"
+          : "bg-slate-400 text-slate-50"
+      } 
        ${className}`}
-      onClick={redirect}
+      onClick={onClick ?? redirect}
     >
       {title}
       {Icon && <Icon size={16} />}
