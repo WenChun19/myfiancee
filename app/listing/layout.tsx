@@ -2,11 +2,11 @@ import React from "react";
 import { listing_menus } from "../libs/data";
 import Link from "next/link";
 
-interface DashboardLayoutProps {
+interface ListingLayoutProps {
   children: React.ReactNode;
 }
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
+const ListingLayout: React.FC<ListingLayoutProps> = ({ children }) => {
   return (
     <section className="md:grid md:grid-cols-5 flex flex-col">
       <nav className="flex md:flex-col gap-3 col-span-1 md:justify-center items-center md:p-2 p-4">
@@ -23,8 +23,6 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
       <div className="m-3 col-span-4">{children}</div>
     </section>
   );
-
-  return children;
 };
 
-export default DashboardLayout;
+export default ListingLayout;
