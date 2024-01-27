@@ -29,13 +29,13 @@ const BurgerMenu = () => {
           />
         </div>
         <nav className="flex flex-col gap-3 mt-4 text-sm">
-          {menus.map((menu) => (
-            <>
+          {menus.map((menu, index) => (
+            <div key={index}>
               <Link className="mr-2" key={menu.title} href={menu.href}>
                 {menu.title}
               </Link>
-              <hr className="w-3/4" />
-            </>
+              <hr className="w-3/4" key={index} />
+            </div>
           ))}
         </nav>
       </div>
