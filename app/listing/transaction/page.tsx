@@ -1,10 +1,20 @@
 import Button from "@/app/components/Button";
-import ListingTable from "@/app/components/ListingTable";
+import ListingTable, {
+  TransactionDataType,
+} from "@/app/components/ListingTable";
 import React from "react";
 import prisma from "@/app/libs/prismadb";
+import { unstable_noStore } from "next/cache";
 
-export const getAllTransactions = async () => {
+type allTransactionsResponse = {
+  status: string;
+  transactions: TransactionDataType[] | [];
+};
+
+const getAllTransactions = async (): Promise<allTransactionsResponse> => {
   try {
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
+
     const transactions = await prisma.transaction.findMany();
     return { status: "success", transactions };
   } catch (error: any) {
@@ -14,6 +24,8 @@ export const getAllTransactions = async () => {
 };
 
 const Transaction = async () => {
+  unstable_noStore();
+
   const response = await getAllTransactions();
   const { transactions } = response;
 
@@ -22,6 +34,7 @@ const Transaction = async () => {
       <div className="flex justify-end mr-3">
         <Button title="Add Transaction" href="/transaction/add" />
       </div>
+
       <ListingTable data={transactions} />
     </section>
   );

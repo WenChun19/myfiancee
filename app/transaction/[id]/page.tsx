@@ -1,8 +1,14 @@
 import GoBack from "@/app/components/GoBack";
+import { TransactionDataType } from "@/app/components/ListingTable";
 import TransactionForm from "@/app/components/TransactionForm";
 import prisma from "@/app/libs/prismadb";
 
-export const getTransaction = async (id: string) => {
+type TransactionResponse = {
+  status: string;
+  transaction: TransactionDataType | null;
+};
+
+const getTransaction = async (id: string): Promise<TransactionResponse> => {
   try {
     const transaction = await prisma.transaction.findFirst({
       where: {
@@ -16,7 +22,6 @@ export const getTransaction = async (id: string) => {
 };
 
 const EditTransaction = async ({ params }: { params: { id: string } }) => {
-  
   const { id } = params;
   const { transaction } = await getTransaction(id);
 
