@@ -1,10 +1,6 @@
-"use client";
-
-import React from "react";
-import { transaction_data } from "../libs/data";
-import { HiTrash } from "react-icons/hi2";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import Link from "next/link";
+import DeleteTransactionModal from "./DeleteTransactionModal";
 
 export interface TransactionDataType {
   id: string;
@@ -51,33 +47,31 @@ const ListingTable = ({ data }: ListingTableProps) => {
           </tr>
         </thead>
         <tbody>
-          {data.map(
-            ({ id, name, debit, credit, created_at }, index) => (
-              <tr
-                key={`${name}_${index}`}
-                className="bg-white border-b dark:bg-gray-800 
+          {data.map(({ id, name, debit, credit, created_at }, index) => (
+            <tr
+              key={`${name}_${index}`}
+              className="bg-white border-b dark:bg-gray-800 
           dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-              >
-                <th
-                  className="px-6 py-4 font-medium text-gray-900
+            >
+              <th
+                className="px-6 py-4 font-medium text-gray-900
               whitespace-nowrap dark:text-white"
-                >
-                  {name}
-                </th>
-                <td className="px-6 py-4">{debit}</td>
-                <td className="px-6 py-4">{credit}</td>
-                <td className="px-6 py-4">{created_at.toString()}</td>
-                <td className="px-6 py-4">
-                  <div className="flex mr-1 text-lg text-cyan-600">
-                    <Link href={`/transaction/${id}`}>
-                      <HiOutlinePencilAlt />
-                    </Link>
-                    <HiTrash onClick={() => alert("damn")} />
-                  </div>
-                </td>
-              </tr>
-            )
-          )}
+              >
+                {name}
+              </th>
+              <td className="px-6 py-4">{debit}</td>
+              <td className="px-6 py-4">{credit}</td>
+              <td className="px-6 py-4">{created_at.toString()}</td>
+              <td className="px-6 py-4">
+                <div className="flex mr-1 text-lg text-cyan-600">
+                  <Link href={`/transaction/${id}`}>
+                    <HiOutlinePencilAlt />
+                  </Link>
+                  <DeleteTransactionModal transactionId={id}/>
+                </div>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

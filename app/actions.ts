@@ -48,3 +48,14 @@ export const updateTransaction = async (id: string, formData: FormData) => {
 
   redirect("/listing/transaction");
 };
+
+export const deleteTransaction = async (id: string) => {
+  try {
+    await prisma.transaction.delete({
+      where: { id },
+    });
+    revalidatePath("/listing/transaction");
+  } catch (error: any) {
+    console.log(error.message);
+  }
+};

@@ -16,8 +16,6 @@ const getAllTransactions = async (
   search: string
 ): Promise<allTransactionsResponse> => {
   try {
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const transactions = await prisma.transaction.findMany({
       where: {
         name: { contains: search, mode: "insensitive" },
