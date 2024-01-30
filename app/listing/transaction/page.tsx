@@ -30,7 +30,11 @@ const getAllTransactions = async (
         skip,
         take: limit,
       }),
-      prisma.transaction.count(),
+      prisma.transaction.count({
+        where: {
+          name: { contains: search, mode: "insensitive" },
+        },
+      }),
     ]);
     return { status: "success", transactions, totalTransactions };
   } catch (error: any) {
