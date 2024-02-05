@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -5,6 +7,7 @@ import { menus } from "../libs/data";
 import ThemeSwitch from "./ThemeSwitch";
 import { Urbanist } from "next/font/google";
 import BurgerMenu from "./BurgerMenu";
+import Login from "./Login";
 
 const urbanist = Urbanist({ subsets: ["latin"], weight: ["500"] });
 
@@ -29,6 +32,7 @@ const Header = () => {
               {menu.title}
             </Link>
           ))}
+          <Login />
           <div className="flex items-center ml-3">
             <ThemeSwitch />
           </div>

@@ -7,10 +7,6 @@ export const menus = [
     title: "Profile",
     href: "/profile",
   },
-  {
-    title: "Login",
-    href: "/login",
-  },
 ];
 
 export const listing_menus = [
