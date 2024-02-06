@@ -1,11 +1,11 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { Adapter } from "next-auth/adapters";
 import prisma from "@/app/libs/prismadb";
 import bcrypt from "bcrypt";
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     CredentialsProvider({
@@ -45,13 +45,22 @@ const handler = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  debug: true,
   pages: {
     signIn: "/login",
   },
   session: {
     strategy: "jwt",
   },
-});
+  callbacks: {
+    async signIn({ user }) {
+      if (user) {
+        return true;
+      }
+      return false;
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
