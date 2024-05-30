@@ -1,15 +1,16 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import Button from "../components/Button";
 import Link from "next/link";
 import { signUp } from "../actions";
 import toast from "react-hot-toast";
-import { signInUser } from "../utils/helpers";
+import { signInUser, uploadImage } from "../utils/helpers";
 import { useRouter } from "next/navigation";
+import ImageUpload from "../components/ImageUpload";
 
 export const signUpSchema = z
   .object({
@@ -28,6 +29,7 @@ export const signUpSchema = z
 export type SignUpFormData = z.infer<typeof signUpSchema>;
 
 const SignUp = () => {
+  const [file, setFile] = useState<File>();
   const router = useRouter();
   const {
     handleSubmit,
@@ -37,8 +39,17 @@ const SignUp = () => {
     resolver: zodResolver(signUpSchema),
   });
 
+  const handleUpload = (file: File) => {
+    setFile(file);
+  };
+
   const onSubmit = async (data: SignUpFormData) => {
-    const { user, error } = await signUp(data);
+    let image = "";
+    if (file) {
+      image = await uploadImage("profile", file);
+    }
+
+    const { user, error } = await signUp(data, image);
 
     if (error) {
       toast.error(error);
@@ -52,7 +63,7 @@ const SignUp = () => {
 
   return (
     <section
-      className=" p-8 my-8 mx-20 border-2 border-slate-300
+      className="p-8 my-8 mx-auto border-2 border-slate-300 w-1/2
           shadow-lg rounded-lg"
     >
       <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
@@ -162,6 +173,7 @@ const SignUp = () => {
             </p>
           )}
         </div>
+        <ImageUpload handleUpload={handleUpload} />
         <Button title="Signup" type="submit" />
         <Link
           href="/login"

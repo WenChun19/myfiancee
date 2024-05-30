@@ -29,30 +29,20 @@ export const signInUser = async (
   }
 };
 
-export const uploadImage = async (
-  folder: string,
-  file: File,
-  callback: (url: string) => void
-) => {
+export const uploadImage = async (folder: string, file: File) => {
   const storageRef = ref(storage, `/images/${folder}/${file.name}`);
-  const uploader = uploadBytesResumable(storageRef, file);
 
-  uploader.on(
-    "state_changed",
-    (snapshot) => {
-      const percent = Math.round(
-        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-      );
-
-      console.log(percent);
-    },
-    (err) => {
-      console.log(err);
-    },
-    () => {
-      getDownloadURL(uploader.snapshot.ref).then((url) => {
-        callback(url);
-      });
+  let url = "";
+  try {
+    const snapshot = await uploadBytesResumable(storageRef, file);
+    url = (await getDownloadURL(snapshot.ref)).toString();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    const charIndex = url.lastIndexOf(`${folder}`);
+    if (charIndex != -1) {
+      url = url.substring(charIndex + folder?.length);
     }
-  );
+    return url;
+  }
 };

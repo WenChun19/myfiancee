@@ -20,7 +20,7 @@ const Modal: FC<ModalProps> = ({ onClose, onConfirm }) => {
             bg-opacity-70"
     >
       <div
-        className="bg-white w-1/2 h-40 
+        className="bg-white w-[350px] h-40 
             rounded-md p-3"
       >
         <div className="flex justify-end">

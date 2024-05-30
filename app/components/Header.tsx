@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { menus } from "../libs/data";
 import ThemeSwitch from "./ThemeSwitch";
 import { Urbanist } from "next/font/google";
 import BurgerMenu from "./BurgerMenu";
@@ -27,11 +26,15 @@ const Header = () => {
           className={`hidden sm:flex items-center 
           text-slate-600 justify-around ${urbanist.className}`}
         >
-          {menus.map((menu) => (
-            <Link className="mr-2" key={menu.title} href={menu.href}>
-              {menu.title}
-            </Link>
-          ))}
+          <Link className="mr-2" key="Dashboard" href={"/dashboard"}>
+            Dashboard
+          </Link>
+          <Link className="mr-2" key="Listing" href={"/listing/investment"}>
+            Listing
+          </Link>
+          <Link className="mr-2" key="Portfolio" href={"/portfolio"}>
+            Portfolio
+          </Link>
           <Login />
           <div className="flex items-center ml-3">
             <ThemeSwitch />

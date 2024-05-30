@@ -16,8 +16,8 @@ const Login = () => {
 
   return isAuthenticated ? (
     <button
-      onClick={() => {
-        signOut();
+      onClick={async () => {
+        await signOut();
         toast.success("Successfully logout!");
       }}
     >

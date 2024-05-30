@@ -11,7 +11,7 @@ export interface TransactionDataType {
 }
 
 type ListingTableProps = {
-  data: TransactionDataType[];
+  data: TransactionDataType[] | [];
 };
 
 const ListingTable = ({ data }: ListingTableProps) => {

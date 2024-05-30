@@ -58,6 +58,17 @@ export const authOptions: NextAuthOptions = {
       }
       return false;
     },
+    jwt({ token, account, user }) {
+      if (account) {
+        token.accessToken = account.access_token;
+        token.id = user?.id;
+      }
+      return token;
+    },
+    session({ session, token }) {
+      session.user.id = token.id;
+      return session;
+    },
   },
 };
 
